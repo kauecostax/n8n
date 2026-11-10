@@ -8,6 +8,7 @@ import {
 	getConnectionHintNoticeField,
 } from '@n8n/ai-utilities';
 import {
+	jsonParse,
 	NodeConnectionTypes,
 	NodeOperationError,
 	type INodeProperties,
@@ -40,7 +41,7 @@ function parseOutputSchema(
 	let schema: unknown = rawSchema ?? OUTPUT_SCHEMA_EXAMPLE;
 	if (typeof schema === 'string') {
 		try {
-			schema = JSON.parse(schema);
+			schema = jsonParse<unknown>(schema);
 		} catch (error) {
 			throw new NodeOperationError(
 				ctx.getNode(),
